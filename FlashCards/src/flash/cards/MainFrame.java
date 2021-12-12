@@ -13,8 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MainFrame {
-	private JFrame mainFrame, quizFrame, highScoreFrame;
-	private JPanel mainPanel, quizPanel, highScorePanel, buttonPanel;
+	private JFrame mainFrame;
+	private JPanel mainPanel, quizPanel, buttonPanel;
 	private JButton startQuizButton, stopQuizButton, highScoreButton;
 	private JLabel mainLabel, quizLabel;
 	
