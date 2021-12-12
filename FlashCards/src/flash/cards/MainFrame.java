@@ -42,7 +42,7 @@ public class MainFrame {
 		
 		quizPanel = new JPanel();
 		quizPanel.setLayout(new BorderLayout());
-		quizPanel.setBackground(Color.PINK);
+		quizPanel.setBackground(Color.BLUE);
 		
 		
 		mainLabel = new JLabel("Welcome to Addition Flashcards!");
