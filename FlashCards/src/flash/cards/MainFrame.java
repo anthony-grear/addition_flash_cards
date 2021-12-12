@@ -2,21 +2,33 @@ package flash.cards;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class MainFrame {
 	private JFrame mainFrame;
-	private JPanel mainPanel, quizPanel, buttonPanel;
-	private JButton startQuizButton, stopQuizButton, highScoreButton;
+	private JPanel mainPanel, quizPanel, buttonPanel, fillPanel;
+	private JButton startQuizButton, stopQuizButton, highScoreButton, submitButton;
 	private JLabel mainLabel, quizLabel;
+	private JTextField tf;
+	private GridBagConstraints gbc;
+	
+	
 	
 	public MainFrame() {
 		initialize();		
@@ -41,23 +53,72 @@ public class MainFrame {
 		buttonPanel.setBackground(Color.GREEN);
 		
 		quizPanel = new JPanel();
-		quizPanel.setLayout(new BorderLayout());
+		quizPanel.setLayout(new GridBagLayout());
 		quizPanel.setBackground(Color.BLUE);
 		
+		fillPanel = new JPanel();
+		fillPanel.setBackground(Color.BLUE);
+		
+		tf = new JTextField(25);
+		tf.setFont(new Font("MS Gothic", Font.PLAIN, 32));
+		tf.setHorizontalAlignment(JTextField.RIGHT);
 		
 		mainLabel = new JLabel("Welcome to Addition Flashcards!");
 		mainLabel.setFont(new Font("MS Gothic",Font.PLAIN,32));
 		
 		quizLabel = new JLabel("3 + 3");
-		quizLabel.setFont(new Font("MS Gothic", Font.PLAIN, 32));
-		quizLabel.setHorizontalAlignment(JLabel.CENTER);
+		quizLabel.setFont(new Font("MS Gothic", Font.PLAIN, 48));
+
 		
 		
 		startQuizButton = new JButton("Start Quiz");
-		stopQuizButton = new JButton("Stop Quiz");
-		highScoreButton = new JButton("Get High Score");
+		startQuizButton.setFont(new Font("MS Gothic",Font.PLAIN,32));
 		
-		quizPanel.add(quizLabel, BorderLayout.CENTER);
+		startQuizButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				quizLabel.setText("You just pressed the button!");
+			}
+		});
+		
+		stopQuizButton = new JButton("Stop Quiz");
+		stopQuizButton.setFont(new Font("MS Gothic",Font.PLAIN,32));
+		stopQuizButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				quizLabel.setText("Stop pressing the Button!");
+			}
+		});
+		
+		highScoreButton = new JButton("Get High Score");
+		highScoreButton.setFont(new Font("MS Gothic",Font.PLAIN,32));
+		highScoreButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				quizLabel.setText("Just kidding, it's okay!");
+			}
+		});
+		
+		submitButton = new JButton("Enter");
+//		submitButton.setPreferredSize(new Dimension(140, 50));
+		submitButton.setFont(new Font("MS Gothic",Font.PLAIN,32));
+		
+		gbc = new GridBagConstraints();
+		gbc.insets = new Insets(25, 25, 25, 25);
+		gbc.gridx=1;
+		gbc.gridy=0;
+		quizPanel.add(quizLabel,gbc);
+		gbc = new GridBagConstraints();
+		gbc.insets = new Insets(25, 25, 25, 25);
+		gbc.gridx=1;
+		gbc.gridy=1;
+		quizPanel.add(tf, gbc);
+		gbc = new GridBagConstraints();	
+		gbc.insets = new Insets(25, 25, 25, 25);
+		gbc.gridx=1;
+		gbc.gridy=2;
+		quizPanel.add(submitButton, gbc);
+		
 		mainPanel.add(mainLabel);
 		buttonPanel.add(startQuizButton);
 		buttonPanel.add(stopQuizButton);
