@@ -2,20 +2,14 @@ package flash.cards;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,8 +29,8 @@ public class MainFrame {
 	int random1, random2, score;
 	
 	public void getQuestion() {
-		random1 = ThreadLocalRandom.current().nextInt(0, 10 + 1);
-		random2 = ThreadLocalRandom.current().nextInt(0, 10 + 1);
+		random1 = ThreadLocalRandom.current().nextInt(0, 10 + score);
+		random2 = ThreadLocalRandom.current().nextInt(0, 10 + score);
 		quizLabel.setText(String.valueOf(random1+" + "+random2));
 	}
 	
@@ -92,6 +86,8 @@ public class MainFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				score=0;
+				scoreString = String.valueOf(score);
+				scoreLabel.setText("Score: "+scoreString);
 				getQuestion();
 				tf.requestFocusInWindow();
 			}
