@@ -9,6 +9,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -77,7 +79,9 @@ public class MainFrame {
 		startQuizButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				quizLabel.setText("You just pressed the button!");
+				int random1 = ThreadLocalRandom.current().nextInt(0, 10 + 1);
+				int random2 = ThreadLocalRandom.current().nextInt(0, 10 + 1);
+				quizLabel.setText(String.valueOf(random1+" + "+random2));
 			}
 		});
 		
@@ -100,7 +104,6 @@ public class MainFrame {
 		});
 		
 		submitButton = new JButton("Enter");
-//		submitButton.setPreferredSize(new Dimension(140, 50));
 		submitButton.setFont(new Font("MS Gothic",Font.PLAIN,32));
 		
 		gbc = new GridBagConstraints();
