@@ -21,16 +21,24 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 public class MainFrame {
 	private JFrame mainFrame;
 	private JPanel mainPanel, quizPanel, buttonPanel, fillPanel;
 	private JButton startQuizButton, stopQuizButton, highScoreButton, submitButton;
-	private JLabel mainLabel, quizLabel;
+	private JLabel mainLabel, quizLabel, scoreLabel;
 	private JTextField tf;
 	private GridBagConstraints gbc;
+	private String answerString, scoreString="0";
+	private ActionListener enterAction;
+	int random1, random2, score;
 	
-	
+	public void getQuestion() {
+		random1 = ThreadLocalRandom.current().nextInt(0, 10 + 1);
+		random2 = ThreadLocalRandom.current().nextInt(0, 10 + 1);
+		quizLabel.setText(String.valueOf(random1+" + "+random2));
+	}
 	
 	public MainFrame() {
 		initialize();		
@@ -68,9 +76,13 @@ public class MainFrame {
 		mainLabel = new JLabel("Welcome to Addition Flashcards!");
 		mainLabel.setFont(new Font("MS Gothic",Font.PLAIN,32));
 		
-		quizLabel = new JLabel("3 + 3");
+		quizLabel = new JLabel("Press the Button to Start.");
 		quizLabel.setFont(new Font("MS Gothic", Font.PLAIN, 48));
-
+		
+		
+		scoreLabel = new JLabel("Score: "+scoreString);
+		scoreLabel.setFont(new Font("MS Gothic", Font.PLAIN, 24));
+		scoreLabel.setBorder(new EmptyBorder(0, 80, 0, 0));
 		
 		
 		startQuizButton = new JButton("Start Quiz");
@@ -79,9 +91,9 @@ public class MainFrame {
 		startQuizButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int random1 = ThreadLocalRandom.current().nextInt(0, 10 + 1);
-				int random2 = ThreadLocalRandom.current().nextInt(0, 10 + 1);
-				quizLabel.setText(String.valueOf(random1+" + "+random2));
+				score=0;
+				getQuestion();
+				tf.requestFocusInWindow();
 			}
 		});
 		
@@ -103,8 +115,31 @@ public class MainFrame {
 			}
 		});
 		
+		enterAction = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				answerString = new String();
+				answerString = tf.getText();
+				
+				int answer = Integer.valueOf(answerString);
+				
+				if (answer == random1+random2) {
+					tf.setText("");
+					quizLabel.setText("Correct!");
+					score++;
+					scoreString = String.valueOf(score);
+					scoreLabel.setText("Score: "+scoreString);
+					getQuestion();
+					tf.requestFocusInWindow();
+				}
+			}
+		};
+		
 		submitButton = new JButton("Enter");
 		submitButton.setFont(new Font("MS Gothic",Font.PLAIN,32));
+		submitButton.addActionListener(enterAction);
+		tf.addActionListener(enterAction);
+		
 		
 		gbc = new GridBagConstraints();
 		gbc.insets = new Insets(25, 25, 25, 25);
@@ -123,6 +158,7 @@ public class MainFrame {
 		quizPanel.add(submitButton, gbc);
 		
 		mainPanel.add(mainLabel);
+		mainPanel.add(scoreLabel);
 		buttonPanel.add(startQuizButton);
 		buttonPanel.add(stopQuizButton);
 		buttonPanel.add(highScoreButton);
@@ -132,4 +168,5 @@ public class MainFrame {
 		
 		mainFrame.setVisible(true);
 	}
+	
 }
