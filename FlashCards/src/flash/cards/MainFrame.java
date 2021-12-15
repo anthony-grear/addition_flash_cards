@@ -1,5 +1,9 @@
 package flash.cards;
 
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Insets;
@@ -32,6 +36,29 @@ public class MainFrame {
 		random1 = ThreadLocalRandom.current().nextInt(0, 10 + score);
 		random2 = ThreadLocalRandom.current().nextInt(0, 10 + score);
 		quizLabel.setText(String.valueOf(random1+" + "+random2));
+	}
+	
+	public void writeHighScore() {
+		try {
+			File highScore = new File("highScore.txt");
+			if (highScore.createNewFile()) {
+				FileWriter myWriter = new FileWriter("highScore.txt");
+				myWriter.write(scoreString);
+				myWriter.close();
+			} else {
+				File myObj = new File("highScore.txt");
+				Scanner myReader = new Scanner(myObj);
+				String data = myReader.nextLine();		        
+				int oldScore = Integer.valueOf(data);
+				myReader.close();
+				if (score>oldScore) {
+					FileWriter myWriter = new FileWriter("highScore.txt");
+					myWriter.write(scoreString);
+					myWriter.close();
+				}
+			}} catch (IOException e) {
+			e.printStackTrace();
+			}		
 	}
 	
 	public MainFrame() {
@@ -130,6 +157,7 @@ public class MainFrame {
 				} else {
 					tf.setText("");
 					quizLabel.setText("Game Over!");
+					writeHighScore();
 				}
 			}
 		};
