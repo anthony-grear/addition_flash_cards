@@ -125,7 +125,8 @@ public class MainFrame {
 		stopQuizButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				quizLabel.setText("Stop pressing the Button!");
+				writeHighScore();
+				quizLabel.setText("Your score is "+scoreString);
 			}
 		});
 		
