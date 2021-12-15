@@ -135,7 +135,15 @@ public class MainFrame {
 		highScoreButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				quizLabel.setText("Just kidding, it's okay!");
+				try {
+				File myObj = new File("highScore.txt");
+				Scanner myReader = new Scanner(myObj);
+				String data = myReader.nextLine();
+				quizLabel.setText("High Score: "+ data);
+				myReader.close();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		
