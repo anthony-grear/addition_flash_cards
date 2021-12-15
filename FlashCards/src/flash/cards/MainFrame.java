@@ -127,6 +127,9 @@ public class MainFrame {
 					scoreLabel.setText("Score: "+scoreString);
 					getQuestion();
 					tf.requestFocusInWindow();
+				} else {
+					tf.setText("");
+					quizLabel.setText("Game Over!");
 				}
 			}
 		};
